@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>John You</title>
+    <link>https://johnswyou.github.io/authors/john-you/</link>
+      <atom:link href="https://johnswyou.github.io/authors/john-you/index.xml" rel="self" type="application/rss+xml" />
+    <description>John You</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 30 Jan 2023 18:39:40 -0500</lastBuildDate>
+    <image>
+      <url>https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
+      <title>John You</title>
+      <link>https://johnswyou.github.io/authors/john-you/</link>
+    </image>
+    
+    <item>
+      <title>py_wddff</title>
+      <link>https://johnswyou.github.io/project/py_wddff/</link>
+      <pubDate>Mon, 30 Jan 2023 18:39:40 -0500</pubDate>
+      <guid>https://johnswyou.github.io/project/py_wddff/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>HydroIVS</title>
+      <link>https://johnswyou.github.io/project/hydroivs/</link>
+      <pubDate>Mon, 30 Jan 2023 18:30:46 -0500</pubDate>
+      <guid>https://johnswyou.github.io/project/hydroivs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>FastWavelets</title>
+      <link>https://johnswyou.github.io/project/fastwavelets/</link>
+      <pubDate>Mon, 30 Jan 2023 18:15:32 -0500</pubDate>
+      <guid>https://johnswyou.github.io/project/fastwavelets/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

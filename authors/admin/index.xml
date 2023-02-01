@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>John You</title>
+    <link>https://johnswyou.github.io/authors/admin/</link>
+      <atom:link href="https://johnswyou.github.io/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    <description>John You</description>
+    <generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language>
+    <image>
+      <url>https://johnswyou.github.io/authors/admin/avatar_hu5e0566872520e525a56cb71618c15373_14540_270x270_fill_q75_lanczos_center.jpg</url>
+      <title>John You</title>
+      <link>https://johnswyou.github.io/authors/admin/</link>
+    </image>
+    
+  </channel>
+</rss>
