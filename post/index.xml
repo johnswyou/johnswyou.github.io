@@ -1,226 +1,219 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts | John You</title><link>https://johnswyou.github.io/post/</link><atom:link href="https://johnswyou.github.io/post/index.xml" rel="self" type="application/rss+xml"/><description>Posts</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 11 Feb 2023 00:00:00 +0000</lastBuildDate><image><url>https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url><title>Posts</title><link>https://johnswyou.github.io/post/</link></image><item><title>Extreme Learning Machine in 3 Lines of Code</title><link>https://johnswyou.github.io/post/elm-in-3-lines/</link><pubDate>Sat, 11 Feb 2023 00:00:00 +0000</pubDate><guid>https://johnswyou.github.io/post/elm-in-3-lines/</guid><description>&lt;h2 id="introduction-optional-read">Introduction (optional read)&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts | John You</title><link>https://johnswyou.github.io/post/</link><atom:link href="https://johnswyou.github.io/post/index.xml" rel="self" type="application/rss+xml"/><description>Posts</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Sat, 11 Feb 2023 00:00:00 +0000</lastBuildDate><image><url>https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url><title>Posts</title><link>https://johnswyou.github.io/post/</link></image><item><title>Extreme Learning Machine in 3 Lines of Code</title><link>https://johnswyou.github.io/post/elm-in-3-lines/</link><pubDate>Sat, 11 Feb 2023 00:00:00 +0000</pubDate><guid>https://johnswyou.github.io/post/elm-in-3-lines/</guid><description>&lt;h1 id="introduction-optional-read">Introduction (optional read)&lt;/h1>
 &lt;p>The extreme learning machine (ELM) model is a machine learning (ML) technique that can be applied to both regression and classification problems. ELM is a feed-forward neural network with one hidden layer. The most important difference between a regular feed-forward neural network with one hidden layer and ELM is that &lt;strong>ELM does not use backpropagation&lt;/strong> to learn its weights and biases. Instead, all weights and biases that map input vectors to the single hidden layer are assigned random values, and the weights that map the hidden layer to the output (a predicted target in the case of regression) are learned via least squared, not unlike ordinary least squares (OLS) linear regression. In fact, we will see shortly that the equation for ELM and OLS have the exact same form. It should be clear that the main advantage of ELM is reduced training time relative to training a neural network with the same architecture using backpropagation. One disadvantage of ELM is the questionable practice of assigning random values to the weights and biases that map input vectors to the single hidden layer. It is unclear how this affects the generalizability of ELM.&lt;/p>
-&lt;p>ELM was popularized by a 2006 paper titled &amp;ldquo;Extreme learning machine: Theory and applications&amp;rdquo; by Huang, Zhu and Siew. ELM has been a controversial topic, and while I won&amp;rsquo;t go into details here, you can start with this great article &lt;a href="https://towardsdatascience.com/some-call-it-genius-others-call-it-stupid-the-most-controversial-neural-network-ever-created-2224ed22795a" target="_blank" rel="noopener">https://towardsdatascience.com/some-call-it-genius-others-call-it-stupid-the-most-controversial-neural-network-ever-created-2224ed22795a&lt;/a> if you want to dig into the drama.&lt;/p>
-&lt;h2 id="elm-algorithm-in-math">ELM algorithm in math&lt;/h2>
+&lt;p>ELM was popularized by a 2006 paper titled &amp;ldquo;Extreme learning machine: Theory and applications&amp;rdquo; by Huang, Zhu and Siew. ELM has been a controversial topic, and while I won&amp;rsquo;t go into details here, you can start with &lt;a href="https://towardsdatascience.com/some-call-it-genius-others-call-it-stupid-the-most-controversial-neural-network-ever-created-2224ed22795a" target="_blank" rel="noopener">this great article&lt;/a> if you want to dig into the drama.&lt;/p>
+&lt;h1 id="elm-algorithm-in-math">ELM algorithm in math&lt;/h1>
 &lt;p>Given a training set
-$D=\left\{\left(\mathbf{x}_i, y_i\right) \mid \mathbf{x}_i \in \mathbf{R}^p, y_i \in \mathbf{R}, i=1, \ldots, N\right\}$
-, activation function
-$g(x)$
-, and hidden node number
-$L$
-,
-- **Step 1**: Randomly assign input weight
-$\mathbf{w}_i$
-and bias
-$b_i, i=1, \ldots, L$
-.
-- **Step 2**: Calculate the hidden layer output matrix
-$\mathbf{H}$
-.
-- **Step 3**: Calculate the output weight
-$\beta=\mathbf{H}^{\dagger} \mathbf{y}$
-, where
-$\mathbf{y}=\left[y_1, \ldots, y_N\right]^{\mathrm{T}}$
-and
-$\dagger$
-indicates the Moore-Penrose Pseudo-inverse.
-Notice that each row in the hidden layer output matrix
+$D=\left\{\left(\mathbf{x}_i, y_i\right) \mid \mathbf{x}_i \in \mathbf{R}^p, y_i \in \mathbf{R}, i=1, \ldots, N\right\}$, activation function
+$g(x)$, and hidden node number
+$L$,&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Step 1&lt;/strong>: Randomly assign input weight
+$\mathbf{w}_i$ and bias
+$b_i, i=1, \ldots, L$.&lt;/li>
+&lt;li>&lt;strong>Step 2&lt;/strong>: Calculate the hidden layer output matrix
+$\mathbf{H}$.&lt;/li>
+&lt;li>&lt;strong>Step 3&lt;/strong>: Calculate the output weight
+$\beta=\mathbf{H}^{\dagger} \mathbf{y}$, where
+$\mathbf{y}=\left[y_1, \ldots, y_N\right]^{\mathrm{T}}$ and
+$\dagger$ indicates the Moore-Penrose Pseudo-inverse.&lt;/li>
+&lt;/ul>
+&lt;p>Notice that each row in the hidden layer output matrix&lt;/p>
 $$
 \mathbf{H}=\left[\begin{array}{ccc}g\left(\mathbf{w}_1 \cdot \mathbf{x}_1+b_1\right) &amp; \cdots &amp; g\left(\mathbf{w}_{L} \cdot \mathbf{x}_1+b_{L}\right) \\ \vdots &amp; \cdots &amp; \vdots \\ g\left(\mathbf{w}_1 \cdot \mathbf{x}_N+b_1\right) &amp; \cdots &amp; g\left(\mathbf{w}_{L} \cdot \mathbf{x}_N+b_{L}\right)\end{array}\right]_{N \times L}
 $$
-corresponds to the hidden layer output for sample
-$\mathbf{x}_i$
-.
-If we collect the hidden layer weights into a matrix
-$\mathbf{W}=\left[\mathbf{w}_1, \cdots, \mathbf{w}_L\right]_{p \times L}$
-, hidden layer biases into a vector
-$\mathbf{b} = [b_1, \cdots, b_L]^\mathrm{T}$
-, and input features
-$\{\mathbf{x}_i\}$
-into an
-$N \times p$
-matrix
-$\mathbf{X} = [\mathbf{x}_1, \cdots, \mathbf{x}_N]^\mathrm{T}$
-, we can compute
-$\mathbf{H}$
-in one go by
+&lt;p>corresponds to the hidden layer output for sample
+$\mathbf{x}_i$.&lt;/p>
+&lt;p>If we collect the hidden layer weights into a matrix
+$\mathbf{W}=\left[\mathbf{w}_1, \cdots, \mathbf{w}_L\right]_{p \times L}$, hidden layer biases into a vector
+$\mathbf{b} = [b_1, \cdots, b_L]^\mathrm{T}$, and input features
+$\{\mathbf{x}_i\}$ into an
+$N \times p$ matrix
+$\mathbf{X} = [\mathbf{x}_1, \cdots, \mathbf{x}_N]^\mathrm{T}$, we can compute
+$\mathbf{H}$ in one go by&lt;/p>
 $$
 \mathbf{H} = g\left(\mathbf{X}\mathbf{W}+\mathbf{b}\right)
 $$
-where
-$g(\cdot)$
-is applied element-wise.
-## ELM algorithm in code
-```python
-import numpy as np
-# g(x)
-def sigmoid_activation(x):
-return 1/(1+np.exp(-x))
-# Create a dummy dataset
-p = 5 # Number of input features
-N = 10000 # Numver of observations
-X = np.random.random((N, p))
-Y = np.random.random(N)
-L = 10 # Number of hidden nodes
-# ELM code; 3 lines
-W, b = np.random.random((p, L)), np.random.random(L) # Step 1: Weight matrix, bias vector
-H = sigmoid_activation((X @ W) + b) # Step 2: Hidden layer output matrix
-beta_hat = np.linalg.pinv(H) @ Y # Step 3: Output weights
-```
-Here is what the output weight vector looks like:
-```python
-beta_hat
-```
-array([-0.08387501, 0.80533211, 0.47857566, 0.18550825, 0.09213922,
--0.38558808, 0.34058111, 0.12287951, 0.81207353, -1.86165856])
-## How do we make predictions?
-At inference time, the same weight matrix and bias vector that was randomly generated at training time must be used. This is a key implementation detail. Otherwise, prediction is straight-forward:
-- **Step 1**: Take new input features
-$\mathbf{X}_{new}$
-and compute
-$\mathbf{H}_{new}$
-using the same
-$\mathbf{W}$ and $\mathbf{b}$
-generated at training time.
-- **Step 2**: Compute predictions
-$\mathbf{\hat{y}}=\mathbf{H}_{new}\mathbf{\hat{\beta}}$
-, where
-$\mathbf{\hat{\beta}}$
-is the output weight vector learned at training time.
-## Application: California housing data set (optional read)
-If you're well versed in the Python library Scikit-Learn, here I implement a custom `sklearn` regression estimator and use it to perform a grid search over various hidden layer sizes. I use the California housing data set, which is provided in `sklearn`. The California housing data set is a classic toy data set. See https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset for details.
-```python
-from sklearn.datasets import fetch_california_housing
-X, y = fetch_california_housing(return_X_y=True)
-```
-Let's analyze the effect of `L` (number of nodes in the hidden layer) on prediction performance. We will define prediction performance as the coefficient of determination (R squared) evaluated using 10 fold cross validation.
-First, we will define a custom `sklearn` regression estimator class that implements ELM.
-```python
-from sklearn.base import BaseEstimator, RegressorMixin
-from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
-class NaiveELM(BaseEstimator, RegressorMixin):
-def __init__(self, L = 10):
-self.L = L
-def fit(self, X, y):
-"""A reference implementation of a fitting function.
-Inputs
-----------
-X : {array-like, sparse matrix}, shape (n_samples, n_features)
-The training input samples.
-y : array-like, shape (n_samples,) or (n_samples, n_outputs)
-The target values (real numbers in regression).
-Returns
--------
-self : object
-Returns self.
-"""
-X, y = check_X_y(X, y, accept_sparse=True)
-p = X.shape[1]
-self.W = np.random.random((p, self.L))
-self.b = np.random.random(self.L)
-H = sigmoid_activation((X @ self.W) + self.b)
-self.beta_hat = np.linalg.pinv(H) @ y
-self.is_fitted_ = True
-return self
-def predict(self, X):
-"""
-Inputs
-----------
-X : {array-like, sparse matrix}, shape (n_samples, n_features)
-The training input samples.
-Returns
--------
-y : ndarray, shape (n_samples,)
-"""
-X = check_array(X, accept_sparse=True)
-check_is_fitted(self, 'is_fitted_')
-# At inference time, we use the same W and b generated during training
-H = sigmoid_activation((X @ self.W) + self.b)
-y_hat = H @ self.beta_hat
-return y_hat
-```
-Let's test run our custom `NaiveELM` estimator using 100 hidden nodes, and evaluate model performance for each fold:
-```python
-from sklearn.model_selection import cross_val_score
-from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import Pipeline
-pipeline = Pipeline(steps=[('scaler', StandardScaler()), ('elm', NaiveELM())])
-cross_val_score(pipeline, X, y, scoring='r2', cv=10)
-```
-array([0.4774286 , 0.62912263, 0.18474884, 0.29791226, 0.30588241,
+&lt;p>where
+$g(\cdot)$ is applied element-wise.&lt;/p>
+&lt;h1 id="elm-algorithm-in-code">ELM algorithm in code&lt;/h1>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">numpy&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">np&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># g(x)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">sigmoid_activation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">+&lt;/span>&lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Create a dummy dataset&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">5&lt;/span> &lt;span class="c1"># Number of input features&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">N&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10000&lt;/span> &lt;span class="c1"># Numver of observations&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">X&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">p&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">L&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="c1"># Number of hidden nodes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># ELM code; 3 lines&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">W&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">L&lt;/span>&lt;span class="p">)),&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">L&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Step 1: Weight matrix, bias vector&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">H&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sigmoid_activation&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">X&lt;/span> &lt;span class="o">@&lt;/span> &lt;span class="n">W&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># Step 2: Hidden layer output matrix&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">beta_hat&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">linalg&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pinv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">H&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">@&lt;/span> &lt;span class="n">Y&lt;/span> &lt;span class="c1"># Step 3: Output weights&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Here is what the output weight vector looks like:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">beta_hat&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>array([-0.49835507, -0.68508437, -0.12280456, 0.37581779, -0.04470077,
+3.09404425, -1.1261844 , -0.89855811, -1.14341015, 1.46157009])
+&lt;/code>&lt;/pre>
+&lt;h1 id="how-do-we-make-predictions">How do we make predictions?&lt;/h1>
+&lt;p>At inference time, the same weight matrix and bias vector that was randomly generated at training time must be used. This is a key implementation detail. Otherwise, prediction is straight-forward:&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Step 1&lt;/strong>: Take new input features
+$\mathbf{X}_{new}$ and compute
+$\mathbf{H}_{new}$ using the same
+$\mathbf{W}$ and $\mathbf{b}$ generated at training time.&lt;/li>
+&lt;li>&lt;strong>Step 2&lt;/strong>: Compute predictions
+$\mathbf{\hat{y}}=\mathbf{H}_{new}\mathbf{\hat{\beta}}$, where
+$\mathbf{\hat{\beta}}$ is the output weight vector learned at training time.&lt;/li>
+&lt;/ul>
+&lt;h1 id="application-california-housing-data-set-optional-read">Application: California housing data set (optional read)&lt;/h1>
+&lt;p>If you&amp;rsquo;re well versed in the Python library Scikit-Learn, here I implement a custom &lt;code>sklearn&lt;/code> regression estimator and use it to perform a grid search over various hidden layer sizes. I use the California housing data set, which is provided in &lt;code>sklearn&lt;/code>. The &lt;a href="https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset" target="_blank" rel="noopener">California housing data set&lt;/a> is a classic toy data set.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sklearn.datasets&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">fetch_california_housing&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fetch_california_housing&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">return_X_y&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Let&amp;rsquo;s analyze the effect of &lt;code>L&lt;/code> (number of nodes in the hidden layer) on prediction performance. We will define prediction performance as the coefficient of determination (R squared) evaluated using 10 fold cross validation.&lt;/p>
+&lt;p>First, we will define a custom &lt;code>sklearn&lt;/code> regression estimator class that implements ELM.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sklearn.base&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">BaseEstimator&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">RegressorMixin&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sklearn.utils.validation&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">check_X_y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">check_array&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">check_is_fitted&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">NaiveELM&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">BaseEstimator&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">RegressorMixin&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">L&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">L&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">L&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">fit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;A reference implementation of a fitting function.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> Inputs
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> ----------
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> X : {array-like, sparse matrix}, shape (n_samples, n_features)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> The training input samples.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> y : array-like, shape (n_samples,) or (n_samples, n_outputs)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> The target values (real numbers in regression).
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> Returns
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> -------
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> self : object
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> Returns self.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">check_X_y&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">accept_sparse&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">X&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">shape&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">W&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">p&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">L&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">L&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">H&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sigmoid_activation&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">X&lt;/span> &lt;span class="o">@&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">W&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">beta_hat&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">linalg&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pinv&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">H&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">@&lt;/span> &lt;span class="n">y&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">is_fitted_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">True&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="bp">self&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">predict&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">X&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;&amp;#34;&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> Inputs
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> ----------
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> X : {array-like, sparse matrix}, shape (n_samples, n_features)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> The training input samples.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> Returns
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> -------
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> y : ndarray, shape (n_samples,)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s2"> &amp;#34;&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">X&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">check_array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">accept_sparse&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">check_is_fitted&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;is_fitted_&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># At inference time, we use the same W and b generated during training&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">H&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">sigmoid_activation&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="n">X&lt;/span> &lt;span class="o">@&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">W&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">y_hat&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">H&lt;/span> &lt;span class="o">@&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">beta_hat&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">y_hat&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Let&amp;rsquo;s test run our custom &lt;code>NaiveELM&lt;/code> estimator using 100 hidden nodes, and evaluate model performance for each fold:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sklearn.model_selection&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">cross_val_score&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sklearn.preprocessing&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">StandardScaler&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sklearn.pipeline&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Pipeline&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pipeline&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Pipeline&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">steps&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">[(&lt;/span>&lt;span class="s1">&amp;#39;scaler&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">StandardScaler&lt;/span>&lt;span class="p">()),&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;elm&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">NaiveELM&lt;/span>&lt;span class="p">())])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cross_val_score&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">pipeline&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">scoring&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;r2&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">cv&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>array([0.4774286 , 0.62912263, 0.18474884, 0.29791226, 0.30588241,
 0.46966579, 0.05484954, 0.43242109, 0.22834019, 0.48071248])
-We are ready to do a grid search over different values of `L` (number of hidden nodes). Let's try values of `L` between 1 and 200 (inclusive).
-```python
-from sklearn.model_selection import validation_curve
-param_range = np.array(range(1, 200 + 1))
-train_scores, test_scores = validation_curve(
-pipeline,
-X,
-y,
-param_name="elm__L", # IMPORTANT to use double underscore to specify hyperparameter
-param_range=param_range,
-cv = 10,
-scoring="r2",
-n_jobs=6,
-)
-```
-We visualize the result of our grid search below. The following code was almost entirely copy-pasted from https://scikit-learn.org/stable/auto_examples/model_selection/plot_validation_curve.html#sphx-glr-auto-examples-model-selection-plot-validation-curve-py.
-```python
-import matplotlib.pyplot as plt
-train_scores_mean = np.mean(train_scores, axis=1)
-train_scores_std = np.std(train_scores, axis=1)
-test_scores_mean = np.mean(test_scores, axis=1)
-test_scores_std = np.std(test_scores, axis=1)
-plt.title("Validation Curve with ELM")
-plt.xlabel("Hidden nodes")
-plt.ylabel("R Squared")
-plt.ylim(0.0, 1.1)
-lw = 2
-plt.plot(
-param_range, train_scores_mean, label="Training score", color="darkorange", lw=lw
-)
-plt.fill_between(
-param_range,
-train_scores_mean - train_scores_std,
-train_scores_mean + train_scores_std,
-alpha=0.2,
-color="darkorange",
-lw=lw,
-)
-plt.plot(
-param_range, test_scores_mean, label="Cross-validation score", color="navy", lw=lw
-)
-plt.fill_between(
-param_range,
-test_scores_mean - test_scores_std,
-test_scores_mean + test_scores_std,
-alpha=0.2,
-color="navy",
-lw=lw,
-)
-plt.legend(loc="best")
-plt.show()
-```
-![png](./index_24_0.png)
-## Relation to OLS (optional read)
-As you may have already figured, ELM and OLS share the same equation. The equation for ELM is
+&lt;/code>&lt;/pre>
+&lt;p>We are ready to do a grid search over different values of &lt;code>L&lt;/code> (number of hidden nodes). Let&amp;rsquo;s try values of &lt;code>L&lt;/code> between 1 and 200 (inclusive).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">sklearn.model_selection&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">validation_curve&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">param_range&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">array&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">200&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">train_scores&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">test_scores&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">validation_curve&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pipeline&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">X&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">y&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">param_name&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;elm__L&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1"># IMPORTANT to use double underscore to specify hyperparameter&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">param_range&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">param_range&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">cv&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">scoring&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;r2&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">n_jobs&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">6&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>We visualize the result of our grid search below. The following code was almost entirely copy-pasted from &lt;a href="https://scikit-learn.org/stable/auto_examples/model_selection/plot_validation_curve.html#sphx-glr-auto-examples-model-selection-plot-validation-curve-py" target="_blank" rel="noopener">Scikit-Learn documentation&lt;/a>.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">matplotlib.pyplot&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">plt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">train_scores_mean&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mean&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">train_scores&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">axis&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">train_scores_std&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">train_scores&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">axis&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">test_scores_mean&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">mean&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">test_scores&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">axis&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">test_scores_std&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">std&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">test_scores&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">axis&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">title&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Validation Curve with ELM&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">xlabel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hidden nodes&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ylabel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;R Squared&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">ylim&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mf">0.0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mf">1.1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">lw&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">plot&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">param_range&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">train_scores_mean&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;Training score&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;darkorange&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lw&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">lw&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fill_between&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">param_range&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">train_scores_mean&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">train_scores_std&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">train_scores_mean&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">train_scores_std&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">alpha&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">0.2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">color&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;darkorange&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">lw&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">lw&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">plot&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">param_range&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">test_scores_mean&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">label&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;Cross-validation score&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;navy&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">lw&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">lw&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">fill_between&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">param_range&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">test_scores_mean&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="n">test_scores_std&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">test_scores_mean&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">test_scores_std&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">alpha&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">0.2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">color&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;navy&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">lw&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">lw&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">legend&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">loc&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;best&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">show&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img src="./index_24_0.png" alt="png" loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;h1 id="relation-to-ols-optional-read">Relation to OLS (optional read)&lt;/h1>
+&lt;p>As you may have already figured, ELM and OLS share the same equation. The equation for ELM is&lt;/p>
 $$
 \mathbf{y} = \mathbf{H} \mathbf{\beta}
 $$
-while the equation for the OLS linear model is
+&lt;p>while the equation for the OLS linear model is&lt;/p>
 $$
 \mathbf{y} = \mathbf{X} \mathbf{\beta^*}
 $$
-(I used
-$\mathbf{\beta^*}$
-to distinguish the OLS coefficients from the ELM output weight vector
-$\beta$
-.) For simplicity I did not include an error term in the above equations. Interestingly, if we include an error term in the ELM model equation like so
+&lt;p>(I used
+$\mathbf{\beta^*}$ to distinguish the OLS coefficients from the ELM output weight vector
+$\beta$.) For simplicity I did not include an error term in the above equations. Interestingly, if we include an error term in the ELM model equation like so&lt;/p>
 $$
 \mathbf{y} = \mathbf{H} \mathbf{\beta} + \mathbf{\epsilon}
 $$
-we can adopt a Bayesian linear regression approach to ELM, known as Bayesian Extreme Learning Machine (BELM), which allows us to obtain probability densities for predictions. For further details, see (Soria-Olivas, 2011).
-## Final thoughts
-I think the extreme learning machine model is a great way to introduce neural networks to students who are already familiar with linear regression. ELM has a simple architecture, shares the same equation as linear regression, is easy to implement, and fast in both training and predicting. ELM should certainly be given more love in educational institutions.
-Thanks for reading!
-&lt;/p></description></item></channel></rss>
+&lt;p>we can adopt a Bayesian linear regression approach to ELM, known as Bayesian Extreme Learning Machine (BELM), which allows us to obtain probability densities for predictions. For further details, see (Soria-Olivas, 2011).&lt;/p>
+&lt;h1 id="final-thoughts">Final thoughts&lt;/h1>
+&lt;p>I think the extreme learning machine model is a great way to introduce neural networks to students who are already familiar with linear regression. ELM has a simple architecture, shares the same equation as linear regression, is easy to implement, and fast in both training and predicting. ELM should certainly be given more love in educational institutions.&lt;/p>
+&lt;p>Thanks for reading!&lt;/p></description></item></channel></rss>
