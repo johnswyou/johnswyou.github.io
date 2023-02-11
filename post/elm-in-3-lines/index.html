@@ -1,0 +1,240 @@
+<!doctype html><!-- This site was created with Wowchemy. https://www.wowchemy.com --><!-- Last Published: February 11, 2023 --><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=generator content="Wowchemy 5.7.0 for Hugo"><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=preload as=style href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto+Mono&family=Roboto:wght@400;700&display=swap" media=print onload='this.media="all"'><link rel=stylesheet href=/css/vendor-bundle.min.16f785cdb553c8c4431db6775122af35.css media=print onload='this.media="all"'><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/academicons@1.9.2/css/academicons.min.css integrity="sha512-KlJCpRsLf+KKu2VQa5vmRuClRFjxc5lXO03ixZt82HZUk41+1I0bD8KBSA0fY290ayMfWYI9udIqeOWSu1/uZg==" crossorigin=anonymous media=print onload='this.media="all"'><link rel=stylesheet href=/css/wowchemy.0f229d4b7ebad1917a9a357cba2effab.css><link rel=stylesheet href=/css/libs/chroma/github-light.min.css title=hl-light media=print onload='this.media="all"'><link rel=stylesheet href=/css/libs/chroma/dracula.min.css title=hl-dark media=print onload='this.media="all"' disabled><meta name=author content="John You"><meta name=description content="Introduction (optional read) The extreme learning machine (ELM) model is a machine learning (ML) technique that can be applied to both regression and classification problems. ELM is a feed-forward neural network with one hidden layer."><link rel=alternate hreflang=en-us href=https://johnswyou.github.io/post/elm-in-3-lines/><link rel=canonical href=https://johnswyou.github.io/post/elm-in-3-lines/><link rel=manifest href=/manifest.webmanifest><link rel=icon type=image/png href=/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_3.png><link rel=apple-touch-icon type=image/png href=/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_180x180_fill_lanczos_center_3.png><meta name=theme-color content="#1565c0"><meta property="twitter:card" content="summary"><meta property="twitter:site" content="@wowchemy"><meta property="twitter:creator" content="@wowchemy"><meta property="twitter:image" content="https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png"><meta property="og:site_name" content="John You"><meta property="og:url" content="https://johnswyou.github.io/post/elm-in-3-lines/"><meta property="og:title" content="Extreme Learning Machine in 3 Lines of Code | John You"><meta property="og:description" content="Introduction (optional read) The extreme learning machine (ELM) model is a machine learning (ML) technique that can be applied to both regression and classification problems. ELM is a feed-forward neural network with one hidden layer."><meta property="og:image" content="https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png"><meta property="og:locale" content="en-us"><meta property="article:published_time" content="2023-02-11T00:00:00+00:00"><meta property="article:modified_time" content="2023-02-11T00:00:00+00:00"><script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://johnswyou.github.io/post/elm-in-3-lines/"},"headline":"Extreme Learning Machine in 3 Lines of Code","datePublished":"2023-02-11T00:00:00Z","dateModified":"2023-02-11T00:00:00Z","author":{"@type":"Person","name":"John You"},"publisher":{"@type":"Organization","name":"John You","logo":{"@type":"ImageObject","url":"https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_3.png"}},"description":"Introduction (optional read) The extreme learning machine (ELM) model is a machine learning (ML) technique that can be applied to both regression and classification problems. ELM is a feed-forward neural network with one hidden layer."}</script><title>Extreme Learning Machine in 3 Lines of Code | John You</title></head><body id=top data-spy=scroll data-offset=70 data-target=#TableOfContents class=page-wrapper data-wc-page-id=218b5fadaf14c209d1ba3de96efe699a><script src=/js/wowchemy-init.min.ec9d49ca50e4b80bdb08f0417a28ed84.js></script><aside class=search-modal id=search><div class=container><section class=search-header><div class="row no-gutters justify-content-between mb-3"><div class=col-6><h1>Search</h1></div><div class="col-6 col-search-close"><a class=js-search href=# aria-label=Close><i class="fas fa-times-circle text-muted" aria-hidden=true></i></a></div></div><div id=search-box><input name=q id=search-query placeholder=Search... autocapitalize=off autocomplete=off autocorrect=off spellcheck=false type=search class=form-control aria-label=Search...></div></section><section class=section-search-results><div id=search-hits></div></section></div></aside><div class="page-header header--fixed"><header><nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id=navbar-main><div class=container-xl><div class="d-none d-lg-inline-flex"><a class=navbar-brand href=/>John You</a></div><button type=button class=navbar-toggler data-toggle=collapse data-target=#navbar-content aria-controls=navbar-content aria-expanded=false aria-label="Toggle navigation">
+<span><i class="fas fa-bars"></i></span></button><div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none"><a class=navbar-brand href=/>John You</a></div><div class="navbar-collapse main-menu-item collapse justify-content-center" id=navbar-content><ul class="navbar-nav d-md-inline-flex"><li class=nav-item><a class="nav-link active" href=/post/><span>Posts</span></a></li><li class=nav-item><a class=nav-link href=/project/><span>Projects</span></a></li><li class=nav-item><a class=nav-link href=/authors/admin/><span>About</span></a></li></ul></div><ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2"><li class=nav-item><a class="nav-link js-search" href=# aria-label=Search><i class="fas fa-search" aria-hidden=true></i></a></li><li class="nav-item dropdown theme-dropdown"><a href=# class=nav-link data-toggle=dropdown aria-haspopup=true aria-label="Display preferences"><i class="fas fa-moon" aria-hidden=true></i></a><div class=dropdown-menu><a href=# class="dropdown-item js-set-theme-light"><span>Light</span></a>
+<a href=# class="dropdown-item js-set-theme-dark"><span>Dark</span></a>
+<a href=# class="dropdown-item js-set-theme-auto"><span>Automatic</span></a></div></li></ul></div></nav></header></div><div class=page-body><article class=article><div class="article-container pt-3"><h1>Extreme Learning Machine in 3 Lines of Code</h1><div class=article-metadata><span class=article-date>Feb 11, 2023</span>
+<span class=middot-divider></span>
+<span class=article-reading-time>7 min read</span></div></div><div class=article-container><div class=article-style><h2 id=introduction-optional-read>Introduction (optional read)</h2><p>The extreme learning machine (ELM) model is a machine learning (ML) technique that can be applied to both regression and classification problems. ELM is a feed-forward neural network with one hidden layer. The most important difference between a regular feed-forward neural network with one hidden layer and ELM is that <strong>ELM does not use backpropagation</strong> to learn its weights and biases. Instead, all weights and biases that map input vectors to the single hidden layer are assigned random values, and the weights that map the hidden layer to the output (a predicted target in the case of regression) are learned via least squared, not unlike ordinary least squares (OLS) linear regression. In fact, we will see shortly that the equation for ELM and OLS have the exact same form. It should be clear that the main advantage of ELM is reduced training time relative to training a neural network with the same architecture using backpropagation. One disadvantage of ELM is the questionable practice of assigning random values to the weights and biases that map input vectors to the single hidden layer. It is unclear how this affects the generalizability of ELM.</p><p>ELM was popularized by a 2006 paper titled &ldquo;Extreme learning machine: Theory and applications&rdquo; by Huang, Zhu and Siew. ELM has been a controversial topic, and while I won&rsquo;t go into details here, you can start with this great article <a href=https://towardsdatascience.com/some-call-it-genius-others-call-it-stupid-the-most-controversial-neural-network-ever-created-2224ed22795a target=_blank rel=noopener>https://towardsdatascience.com/some-call-it-genius-others-call-it-stupid-the-most-controversial-neural-network-ever-created-2224ed22795a</a> if you want to dig into the drama.</p><h2 id=elm-algorithm-in-math>ELM algorithm in math</h2><p>Given a training set
+$D=\left\{\left(\mathbf{x}_i, y_i\right) \mid \mathbf{x}_i \in \mathbf{R}^p, y_i \in \mathbf{R}, i=1, \ldots, N\right\}$
+, activation function
+$g(x)$
+, and hidden node number
+$L$
+,
+- **Step 1**: Randomly assign input weight
+$\mathbf{w}_i$
+and bias
+$b_i, i=1, \ldots, L$
+.
+- **Step 2**: Calculate the hidden layer output matrix
+$\mathbf{H}$
+.
+- **Step 3**: Calculate the output weight
+$\beta=\mathbf{H}^{\dagger} \mathbf{y}$
+, where
+$\mathbf{y}=\left[y_1, \ldots, y_N\right]^{\mathrm{T}}$
+and
+$\dagger$
+indicates the Moore-Penrose Pseudo-inverse.
+Notice that each row in the hidden layer output matrix
+$$
+\mathbf{H}=\left[\begin{array}{ccc}g\left(\mathbf{w}_1 \cdot \mathbf{x}_1+b_1\right) & \cdots & g\left(\mathbf{w}_{L} \cdot \mathbf{x}_1+b_{L}\right) \\ \vdots & \cdots & \vdots \\ g\left(\mathbf{w}_1 \cdot \mathbf{x}_N+b_1\right) & \cdots & g\left(\mathbf{w}_{L} \cdot \mathbf{x}_N+b_{L}\right)\end{array}\right]_{N \times L}
+$$
+corresponds to the hidden layer output for sample
+$\mathbf{x}_i$
+.
+If we collect the hidden layer weights into a matrix
+$\mathbf{W}=\left[\mathbf{w}_1, \cdots, \mathbf{w}_L\right]_{p \times L}$
+, hidden layer biases into a vector
+$\mathbf{b} = [b_1, \cdots, b_L]^\mathrm{T}$
+, and input features
+$\{\mathbf{x}_i\}$
+into an
+$N \times p$
+matrix
+$\mathbf{X} = [\mathbf{x}_1, \cdots, \mathbf{x}_N]^\mathrm{T}$
+, we can compute
+$\mathbf{H}$
+in one go by
+$$
+\mathbf{H} = g\left(\mathbf{X}\mathbf{W}+\mathbf{b}\right)
+$$
+where
+$g(\cdot)$
+is applied element-wise.
+## ELM algorithm in code
+```python
+import numpy as np
+# g(x)
+def sigmoid_activation(x):
+return 1/(1+np.exp(-x))
+# Create a dummy dataset
+p = 5 # Number of input features
+N = 10000 # Numver of observations
+X = np.random.random((N, p))
+Y = np.random.random(N)
+L = 10 # Number of hidden nodes
+# ELM code; 3 lines
+W, b = np.random.random((p, L)), np.random.random(L) # Step 1: Weight matrix, bias vector
+H = sigmoid_activation((X @ W) + b) # Step 2: Hidden layer output matrix
+beta_hat = np.linalg.pinv(H) @ Y # Step 3: Output weights
+```
+Here is what the output weight vector looks like:
+```python
+beta_hat
+```
+array([-0.08387501, 0.80533211, 0.47857566, 0.18550825, 0.09213922,
+-0.38558808, 0.34058111, 0.12287951, 0.81207353, -1.86165856])
+## How do we make predictions?
+At inference time, the same weight matrix and bias vector that was randomly generated at training time must be used. This is a key implementation detail. Otherwise, prediction is straight-forward:
+- **Step 1**: Take new input features
+$\mathbf{X}_{new}$
+and compute
+$\mathbf{H}_{new}$
+using the same
+$\mathbf{W}$ and $\mathbf{b}$
+generated at training time.
+- **Step 2**: Compute predictions
+$\mathbf{\hat{y}}=\mathbf{H}_{new}\mathbf{\hat{\beta}}$
+, where
+$\mathbf{\hat{\beta}}$
+is the output weight vector learned at training time.
+## Application: California housing data set (optional read)
+If you're well versed in the Python library Scikit-Learn, here I implement a custom `sklearn` regression estimator and use it to perform a grid search over various hidden layer sizes. I use the California housing data set, which is provided in `sklearn`. The California housing data set is a classic toy data set. See https://scikit-learn.org/stable/datasets/real_world.html#california-housing-dataset for details.
+```python
+from sklearn.datasets import fetch_california_housing
+X, y = fetch_california_housing(return_X_y=True)
+```
+Let's analyze the effect of `L` (number of nodes in the hidden layer) on prediction performance. We will define prediction performance as the coefficient of determination (R squared) evaluated using 10 fold cross validation.
+First, we will define a custom `sklearn` regression estimator class that implements ELM.
+```python
+from sklearn.base import BaseEstimator, RegressorMixin
+from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+class NaiveELM(BaseEstimator, RegressorMixin):
+def __init__(self, L = 10):
+self.L = L
+def fit(self, X, y):
+"""A reference implementation of a fitting function.
+Inputs
+----------
+X : {array-like, sparse matrix}, shape (n_samples, n_features)
+The training input samples.
+y : array-like, shape (n_samples,) or (n_samples, n_outputs)
+The target values (real numbers in regression).
+Returns
+-------
+self : object
+Returns self.
+"""
+X, y = check_X_y(X, y, accept_sparse=True)
+p = X.shape[1]
+self.W = np.random.random((p, self.L))
+self.b = np.random.random(self.L)
+H = sigmoid_activation((X @ self.W) + self.b)
+self.beta_hat = np.linalg.pinv(H) @ y
+self.is_fitted_ = True
+return self
+def predict(self, X):
+"""
+Inputs
+----------
+X : {array-like, sparse matrix}, shape (n_samples, n_features)
+The training input samples.
+Returns
+-------
+y : ndarray, shape (n_samples,)
+"""
+X = check_array(X, accept_sparse=True)
+check_is_fitted(self, 'is_fitted_')
+# At inference time, we use the same W and b generated during training
+H = sigmoid_activation((X @ self.W) + self.b)
+y_hat = H @ self.beta_hat
+return y_hat
+```
+Let's test run our custom `NaiveELM` estimator using 100 hidden nodes, and evaluate model performance for each fold:
+```python
+from sklearn.model_selection import cross_val_score
+from sklearn.preprocessing import StandardScaler
+from sklearn.pipeline import Pipeline
+pipeline = Pipeline(steps=[('scaler', StandardScaler()), ('elm', NaiveELM())])
+cross_val_score(pipeline, X, y, scoring='r2', cv=10)
+```
+array([0.4774286 , 0.62912263, 0.18474884, 0.29791226, 0.30588241,
+0.46966579, 0.05484954, 0.43242109, 0.22834019, 0.48071248])
+We are ready to do a grid search over different values of `L` (number of hidden nodes). Let's try values of `L` between 1 and 200 (inclusive).
+```python
+from sklearn.model_selection import validation_curve
+param_range = np.array(range(1, 200 + 1))
+train_scores, test_scores = validation_curve(
+pipeline,
+X,
+y,
+param_name="elm__L", # IMPORTANT to use double underscore to specify hyperparameter
+param_range=param_range,
+cv = 10,
+scoring="r2",
+n_jobs=6,
+)
+```
+We visualize the result of our grid search below. The following code was almost entirely copy-pasted from https://scikit-learn.org/stable/auto_examples/model_selection/plot_validation_curve.html#sphx-glr-auto-examples-model-selection-plot-validation-curve-py.
+```python
+import matplotlib.pyplot as plt
+train_scores_mean = np.mean(train_scores, axis=1)
+train_scores_std = np.std(train_scores, axis=1)
+test_scores_mean = np.mean(test_scores, axis=1)
+test_scores_std = np.std(test_scores, axis=1)
+plt.title("Validation Curve with ELM")
+plt.xlabel("Hidden nodes")
+plt.ylabel("R Squared")
+plt.ylim(0.0, 1.1)
+lw = 2
+plt.plot(
+param_range, train_scores_mean, label="Training score", color="darkorange", lw=lw
+)
+plt.fill_between(
+param_range,
+train_scores_mean - train_scores_std,
+train_scores_mean + train_scores_std,
+alpha=0.2,
+color="darkorange",
+lw=lw,
+)
+plt.plot(
+param_range, test_scores_mean, label="Cross-validation score", color="navy", lw=lw
+)
+plt.fill_between(
+param_range,
+test_scores_mean - test_scores_std,
+test_scores_mean + test_scores_std,
+alpha=0.2,
+color="navy",
+lw=lw,
+)
+plt.legend(loc="best")
+plt.show()
+```
+![png](./index_24_0.png)
+## Relation to OLS (optional read)
+As you may have already figured, ELM and OLS share the same equation. The equation for ELM is
+$$
+\mathbf{y} = \mathbf{H} \mathbf{\beta}
+$$
+while the equation for the OLS linear model is
+$$
+\mathbf{y} = \mathbf{X} \mathbf{\beta^*}
+$$
+(I used
+$\mathbf{\beta^*}$
+to distinguish the OLS coefficients from the ELM output weight vector
+$\beta$
+.) For simplicity I did not include an error term in the above equations. Interestingly, if we include an error term in the ELM model equation like so
+$$
+\mathbf{y} = \mathbf{H} \mathbf{\beta} + \mathbf{\epsilon}
+$$
+we can adopt a Bayesian linear regression approach to ELM, known as Bayesian Extreme Learning Machine (BELM), which allows us to obtain probability densities for predictions. For further details, see (Soria-Olivas, 2011).
+## Final thoughts
+I think the extreme learning machine model is a great way to introduce neural networks to students who are already familiar with linear regression. ELM has a simple architecture, shares the same equation as linear regression, is easy to implement, and fast in both training and predicting. ELM should certainly be given more love in educational institutions.
+Thanks for reading!</p></div><div class=share-box><ul class=share><li><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fjohnswyou.github.io%2Fpost%2Felm-in-3-lines%2F&text=Extreme+Learning+Machine+in+3+Lines+of+Code" target=_blank rel=noopener class=share-btn-twitter aria-label=twitter><i class="fab fa-twitter"></i></a></li><li><a href="https://www.facebook.com/sharer.php?u=https%3A%2F%2Fjohnswyou.github.io%2Fpost%2Felm-in-3-lines%2F&t=Extreme+Learning+Machine+in+3+Lines+of+Code" target=_blank rel=noopener class=share-btn-facebook aria-label=facebook><i class="fab fa-facebook"></i></a></li><li><a href="mailto:?subject=Extreme%20Learning%20Machine%20in%203%20Lines%20of%20Code&body=https%3A%2F%2Fjohnswyou.github.io%2Fpost%2Felm-in-3-lines%2F" target=_blank rel=noopener class=share-btn-email aria-label=envelope><i class="fas fa-envelope"></i></a></li><li><a href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Fjohnswyou.github.io%2Fpost%2Felm-in-3-lines%2F&title=Extreme+Learning+Machine+in+3+Lines+of+Code" target=_blank rel=noopener class=share-btn-linkedin aria-label=linkedin-in><i class="fab fa-linkedin-in"></i></a></li><li><a href="whatsapp://send?text=Extreme+Learning+Machine+in+3+Lines+of+Code%20https%3A%2F%2Fjohnswyou.github.io%2Fpost%2Felm-in-3-lines%2F" target=_blank rel=noopener class=share-btn-whatsapp aria-label=whatsapp><i class="fab fa-whatsapp"></i></a></li><li><a href="https://service.weibo.com/share/share.php?url=https%3A%2F%2Fjohnswyou.github.io%2Fpost%2Felm-in-3-lines%2F&title=Extreme+Learning+Machine+in+3+Lines+of+Code" target=_blank rel=noopener class=share-btn-weibo aria-label=weibo><i class="fab fa-weibo"></i></a></li></ul></div><div class="media author-card content-widget-hr"><a href=https://johnswyou.github.io/><img class="avatar mr-3 avatar-circle" src=/authors/admin/avatar_hu5e0566872520e525a56cb71618c15373_14540_270x270_fill_q75_lanczos_center.jpg alt="John You"></a><div class=media-body><h5 class=card-title><a href=https://johnswyou.github.io/>John You</a></h5><h6 class=card-subtitle>MASc Candidate, Civil Engineering</h6><ul class=network-icon aria-hidden=true><li><a href=mailto:jswyou@uwaterloo.ca><i class="fas fa-envelope"></i></a></li><li><a href=https://github.com/johnswyou target=_blank rel=noopener><i class="fab fa-github"></i></a></li><li><a href=https://www.linkedin.com/in/johnyou target=_blank rel=noopener><i class="fab fa-linkedin"></i></a></li><li><a href=/uploads/resume.pdf><i class="ai ai-cv"></i></a></li></ul></div></div></div></article></div><div class=page-footer><div class=container><footer class=site-footer><p class="powered-by copyright-license-text">© 2023 John You.</p><p class=powered-by>Published with <a href="https://wowchemy.com/?utm_campaign=poweredby" target=_blank rel=noopener>Wowchemy</a> — the free, <a href=https://github.com/wowchemy/wowchemy-hugo-themes target=_blank rel=noopener>open source</a> website builder that empowers creators.</p></footer></div></div><script src=/js/vendor-bundle.min.d26509351aa0ff874abbee824e982e9b.js></script>
+<script id=search-hit-fuse-template type=text/x-template>
+    <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+    </div>
+  </script><script src=https://cdn.jsdelivr.net/gh/krisk/Fuse@v3.2.1/dist/fuse.min.js integrity="sha512-o38bmzBGX+hD3JHWUFCDA09btWaqrNmoJ3RXLlrysA7PP01Kgs4UlE4MhelE1v5dJR3+cxlR4qQlotsW7jKsnw==" crossorigin=anonymous></script>
+<script src=https://cdn.jsdelivr.net/gh/julmot/mark.js@8.11.1/dist/jquery.mark.min.js integrity="sha512-mhbv5DqBMgrWL+32MmsDOt/OAvqr/cHimk6B8y/bx/xS88MVkYGPiVv2ixKVrkywF2qHplNRUvFsAHUdxZ3Krg==" crossorigin=anonymous></script>
+<script id=page-data type=application/json>{"use_headroom":true}</script><script src=/js/wowchemy-headroom.db4755770454eb63685f8de785c0a172.js type=module></script>
+<script src=/en/js/wowchemy.min.e8ee06ba8371980ffde659871dd593b0.js></script></body></html>
