@@ -213,7 +213,7 @@ $\beta$.) For simplicity I did not include an error term in the above equations.
 $$
 \mathbf{y} = \mathbf{H} \mathbf{\beta} + \mathbf{\epsilon}
 $$
-&lt;p>we can adopt a Bayesian linear regression approach to ELM, known as Bayesian Extreme Learning Machine (BELM), which allows us to obtain probability densities for predictions. For further details, see (Soria-Olivas, 2011).&lt;/p>
+&lt;p>we can adopt a Bayesian linear regression approach to ELM, known as Bayesian Extreme Learning Machine (BELM), which allows us to obtain probability densities for predictions. For further details, see &lt;a href="https://www.researchgate.net/publication/49776685_BELM_Bayesian_extreme_learning_machine" target="_blank" rel="noopener">Soria-Olivas, 2011&lt;/a>.&lt;/p>
 &lt;h1 id="final-thoughts">Final thoughts&lt;/h1>
 &lt;p>I think the extreme learning machine model is a great way to introduce neural networks to students who are already familiar with linear regression. ELM has a simple architecture, shares the same equation as linear regression, is easy to implement, and fast in both training and predicting. ELM should certainly be given more love in educational institutions.&lt;/p>
 &lt;p>Thanks for reading!&lt;/p></description></item></channel></rss>
