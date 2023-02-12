@@ -17,11 +17,12 @@ $\beta=\mathbf{H}^{\dagger} \mathbf{y}$, where
 $\mathbf{y}=\left[y_1, \ldots, y_N\right]^{\mathrm{T}}$ and
 $\dagger$ indicates the Moore-Penrose Pseudo-inverse.&lt;/li>
 &lt;/ul>
-&lt;p>Notice that each row in the hidden layer output matrix&lt;/p>
+&lt;p>The hidden layer output matrix looks as follows:&lt;/p>
 $$
-\mathbf{H}=\left[\begin{array}{ccc}g\left(\mathbf{w}_1 \cdot \mathbf{x}_1+b_1\right) &amp; \cdots &amp; g\left(\mathbf{w}_{L} \cdot \mathbf{x}_1+b_{L}\right) \\ \vdots &amp; \cdots &amp; \vdots \\ g\left(\mathbf{w}_1 \cdot \mathbf{x}_N+b_1\right) &amp; \cdots &amp; g\left(\mathbf{w}_{L} \cdot \mathbf{x}_N+b_{L}\right)\end{array}\right]_{N \times L}
+\mathbf{H}=\left[\begin{array}{ccc}g\left(\mathbf{w}_1 \cdot \mathbf{x}_1+b_1\right) &amp; \cdots &amp; g\left(\mathbf{w}_{L} \cdot \mathbf{x}_1+b_{L}\right) \\ \vdots &amp; \cdots &amp; \vdots \\ g\left(\mathbf{w}_1 \cdot \mathbf{x}_N+b_1\right) &amp; \cdots &amp; g\left(\mathbf{w}_{L} \cdot \mathbf{x}_N+b_{L}\right)\end{array}\right]_{N \times L}.
 $$
-&lt;p>corresponds to the hidden layer output for sample
+&lt;p>Notice that each row in
+$\mathbf{H}$ corresponds to the hidden layer output for sample
 $\mathbf{x}_i$.&lt;/p>
 &lt;p>If we collect the hidden layer weights into a matrix
 $\mathbf{W}=\left[\mathbf{w}_1, \cdots, \mathbf{w}_L\right]_{p \times L}$, hidden layer biases into a vector

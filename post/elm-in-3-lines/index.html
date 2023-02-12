@@ -14,9 +14,10 @@ $b_i, i=1, \ldots, L$.</li><li><strong>Step 2</strong>: Calculate the hidden lay
 $\mathbf{H}$.</li><li><strong>Step 3</strong>: Calculate the output weight
 $\beta=\mathbf{H}^{\dagger} \mathbf{y}$, where
 $\mathbf{y}=\left[y_1, \ldots, y_N\right]^{\mathrm{T}}$ and
-$\dagger$ indicates the Moore-Penrose Pseudo-inverse.</li></ul><p>Notice that each row in the hidden layer output matrix</p>$$
-\mathbf{H}=\left[\begin{array}{ccc}g\left(\mathbf{w}_1 \cdot \mathbf{x}_1+b_1\right) & \cdots & g\left(\mathbf{w}_{L} \cdot \mathbf{x}_1+b_{L}\right) \\ \vdots & \cdots & \vdots \\ g\left(\mathbf{w}_1 \cdot \mathbf{x}_N+b_1\right) & \cdots & g\left(\mathbf{w}_{L} \cdot \mathbf{x}_N+b_{L}\right)\end{array}\right]_{N \times L}
-$$<p>corresponds to the hidden layer output for sample
+$\dagger$ indicates the Moore-Penrose Pseudo-inverse.</li></ul><p>The hidden layer output matrix looks as follows:</p>$$
+\mathbf{H}=\left[\begin{array}{ccc}g\left(\mathbf{w}_1 \cdot \mathbf{x}_1+b_1\right) & \cdots & g\left(\mathbf{w}_{L} \cdot \mathbf{x}_1+b_{L}\right) \\ \vdots & \cdots & \vdots \\ g\left(\mathbf{w}_1 \cdot \mathbf{x}_N+b_1\right) & \cdots & g\left(\mathbf{w}_{L} \cdot \mathbf{x}_N+b_{L}\right)\end{array}\right]_{N \times L}.
+$$<p>Notice that each row in
+$\mathbf{H}$ corresponds to the hidden layer output for sample
 $\mathbf{x}_i$.</p><p>If we collect the hidden layer weights into a matrix
 $\mathbf{W}=\left[\mathbf{w}_1, \cdots, \mathbf{w}_L\right]_{p \times L}$, hidden layer biases into a vector
 $\mathbf{b} = [b_1, \cdots, b_L]^\mathrm{T}$, and input features
