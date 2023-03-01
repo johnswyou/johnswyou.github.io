@@ -1,4 +1,257 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>John You</title><link>https://johnswyou.github.io/</link><atom:link href="https://johnswyou.github.io/index.xml" rel="self" type="application/rss+xml"/><description>John You</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url><title>John You</title><link>https://johnswyou.github.io/</link></image><item><title>Extreme Learning Machine in 3 Lines of Code</title><link>https://johnswyou.github.io/post/elm-in-3-lines/</link><pubDate>Sat, 11 Feb 2023 00:00:00 +0000</pubDate><guid>https://johnswyou.github.io/post/elm-in-3-lines/</guid><description>&lt;h1 id="introduction-optional-read">Introduction (optional read)&lt;/h1>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>John You</title><link>https://johnswyou.github.io/</link><atom:link href="https://johnswyou.github.io/index.xml" rel="self" type="application/rss+xml"/><description>John You</description><generator>Wowchemy (https://wowchemy.com)</generator><language>en-us</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><image><url>https://johnswyou.github.io/media/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url><title>John You</title><link>https://johnswyou.github.io/</link></image><item><title>Circular Convolution Using Discrete Fourier Transform</title><link>https://johnswyou.github.io/post/dft-circular-convolution/</link><pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate><guid>https://johnswyou.github.io/post/dft-circular-convolution/</guid><description>&lt;p>In this article, I show the mechanics of the discrete Fourier transform (DFT) and circular convolution (within the context of time series analysis). The goal of this post is to present these two methods in a practical yet non-superficial way. We will only deal with real, finite length time series $\left{a_t\right}$. The primary reference for this article is &amp;ldquo;Wavelet Methods for Time Series Analysis&amp;rdquo; by Percival and Walden.&lt;/p>
+&lt;h1 id="discrete-fourier-transform-dft">Discrete Fourier Transform (DFT)&lt;/h1>
+&lt;p>The discrete Fourier transform takes a time series from the time domain to the frequency domain. The transform allows us to see the frequency content of a time series.&lt;/p>
+&lt;p>Suppose we are given a time series&lt;/p>
+$$
+\left\{a_t\right\}=\left\{a_t: t=0, \ldots, N-1\right\}
+$$
+&lt;p>Its discrete Fourier transform is the complex sequence
+$\left\{A_k\right\}$ given by:&lt;/p>
+$$
+A_k \equiv \sum_{t=0}^{N-1} a_t e^{-i 2 \pi t k / N}, \quad k=0, \ldots, N-1
+$$
+&lt;p>Note that
+$A_k$ is associated with frequency
+$f_k \equiv k / N$.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">numpy&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="nn">np&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">matplotlib&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">pyplot&lt;/span> &lt;span class="k">as&lt;/span> &lt;span class="n">plt&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">naive_finite_fourier_transform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># a can be a list or 1D numpy array&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">N&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">A&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">A_k&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">A_k&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">t&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exp&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="n">j&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pi&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">A&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A_k&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">A&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">asarray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">f&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">N&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">)]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">f&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">asarray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">f&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>We can reconstruct
+$\left\{a_t\right\}$ from its DFT
+$\left\{A_k\right\}$ using the inverse DFT:&lt;/p>
+$$
+\frac{1}{N} \sum_{k=0}^{N-1} A_k e^{i 2 \pi t k / N}=a_t, \quad t=0, \ldots, N-1
+$$
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">naive_inverse_finite_fourier_transform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># a can be a list or 1D numpy array&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">N&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a_t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">k&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a_t&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">k&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">exp&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="n">j&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">pi&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="n">k&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">a_t&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">asarray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">list&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">asarray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">t&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">real&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">t&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example">Example&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">A&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">f&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">naive_finite_fourier_transform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">plot&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">f&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:],&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">abs&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">:])&lt;/span>&lt;span class="o">**&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">axvline&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">x&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mf">0.5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;red&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">linestyle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;--&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">plt&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">show&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img src="./index_16_0.png" alt="png" loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">a1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">naive_inverse_finite_fourier_transform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">A&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">allclose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">a1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>True
+&lt;/code>&lt;/pre>
+&lt;h1 id="circular-convolutionfiltering">Circular Convolution/Filtering&lt;/h1>
+&lt;p>Circular convolution (also called circular filtering) is a simple idea, but is cumbersome to read when described with math. For this reason, I will first show how circular convolution works using pictures before presenting any mathematics.&lt;/p>
+&lt;p>Suppose we have two time series,
+$\{a_t\}$ and
+$\{b_t\}$, both of length
+$N=10$. I won&amp;rsquo;t specify the value of the time series here (I&amp;rsquo;ll leave them to the reader&amp;rsquo;s imagination). I will only show the time indices of each time series in the pictures below. The indices of the first time series
+$\{a_t\}$ will be shown in red as follows:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Time series" srcset="
+/post/dft-circular-convolution/a_t_huafdc7c7ab93997ae1a4e20ede4b07927_4666_1671a7272d04d0bf9620079519be735b.webp 400w,
+/post/dft-circular-convolution/a_t_huafdc7c7ab93997ae1a4e20ede4b07927_4666_d258da55313950bbfc0fb6282a8e42c7.webp 760w,
+/post/dft-circular-convolution/a_t_huafdc7c7ab93997ae1a4e20ede4b07927_4666_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="https://johnswyou.github.io/post/dft-circular-convolution/a_t_huafdc7c7ab93997ae1a4e20ede4b07927_4666_1671a7272d04d0bf9620079519be735b.webp"
+width="760"
+height="43"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>and the indices of the second series
+$\{b_t\}$ will be shown in black to distinguish it from
+$\{a_t\}$:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/dft-circular-convolution/b_t_hu93b073cd32fb94c04684d0d212fa894d_9013_7d37d3ffbd030ee838905804105a78a5.webp 400w,
+/post/dft-circular-convolution/b_t_hu93b073cd32fb94c04684d0d212fa894d_9013_6b41820a635341623bc1d38017007dda.webp 760w,
+/post/dft-circular-convolution/b_t_hu93b073cd32fb94c04684d0d212fa894d_9013_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="https://johnswyou.github.io/post/dft-circular-convolution/b_t_hu93b073cd32fb94c04684d0d212fa894d_9013_7d37d3ffbd030ee838905804105a78a5.webp"
+width="760"
+height="47"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>The first step is to reverse the order of
+$\{a_t\}$, which makes its indices look as follows:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="Time series reversed" srcset="
+/post/dft-circular-convolution/a_t_reversed_hu8f93d865b1f68e953f41d6b95fb517eb_8425_04c924f244c745303c1c84cbc9638cb2.webp 400w,
+/post/dft-circular-convolution/a_t_reversed_hu8f93d865b1f68e953f41d6b95fb517eb_8425_d50e225d9fd5d0bebff546115641032c.webp 760w,
+/post/dft-circular-convolution/a_t_reversed_hu8f93d865b1f68e953f41d6b95fb517eb_8425_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="https://johnswyou.github.io/post/dft-circular-convolution/a_t_reversed_hu8f93d865b1f68e953f41d6b95fb517eb_8425_04c924f244c745303c1c84cbc9638cb2.webp"
+width="760"
+height="49"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>Next, we concatenate
+$\{b_t\}$ front to back and perform a sequence of sliding dot products between
+$\{a_t\}$ and the newly lengthened version of
+$\{b_t\}$ as follows:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/dft-circular-convolution/conv1_hu248a934e8d12d70c9b4cd1469dacd4a6_45305_62f3d7cbd45952d56852ccbe8990bd4e.webp 400w,
+/post/dft-circular-convolution/conv1_hu248a934e8d12d70c9b4cd1469dacd4a6_45305_8999dea5f82620015be077c99e3f98dc.webp 760w,
+/post/dft-circular-convolution/conv1_hu248a934e8d12d70c9b4cd1469dacd4a6_45305_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="https://johnswyou.github.io/post/dft-circular-convolution/conv1_hu248a934e8d12d70c9b4cd1469dacd4a6_45305_62f3d7cbd45952d56852ccbe8990bd4e.webp"
+width="760"
+height="234"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>The above picture shows how the first element of the result of a circular convolution between
+$\{a_t\}$ and
+$\{b_t\}$ is constructed:&lt;/p>
+&lt;p>The next element can be constructed as follows:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/dft-circular-convolution/conv2_hu74bfa12dc7368ee99160ed8410294e11_47358_2c8361e8511f3146f7ae7e2a7aa2b917.webp 400w,
+/post/dft-circular-convolution/conv2_hu74bfa12dc7368ee99160ed8410294e11_47358_12b98abe1f198549ddee4fa8986bc349.webp 760w,
+/post/dft-circular-convolution/conv2_hu74bfa12dc7368ee99160ed8410294e11_47358_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="https://johnswyou.github.io/post/dft-circular-convolution/conv2_hu74bfa12dc7368ee99160ed8410294e11_47358_2c8361e8511f3146f7ae7e2a7aa2b917.webp"
+width="760"
+height="240"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>and here&amp;rsquo;s element
+$N-2$ of the resultant circular convolution time series:&lt;/p>
+&lt;p>
+&lt;figure >
+&lt;div class="d-flex justify-content-center">
+&lt;div class="w-100" >&lt;img alt="" srcset="
+/post/dft-circular-convolution/conv3_huf330c55d803386c09fdd55f7d7650179_52323_28e393fd22bda124c0c5d08d312523bc.webp 400w,
+/post/dft-circular-convolution/conv3_huf330c55d803386c09fdd55f7d7650179_52323_c01c75dd29a083c45adcea49761f9073.webp 760w,
+/post/dft-circular-convolution/conv3_huf330c55d803386c09fdd55f7d7650179_52323_1200x1200_fit_q75_h2_lanczos_3.webp 1200w"
+src="https://johnswyou.github.io/post/dft-circular-convolution/conv3_huf330c55d803386c09fdd55f7d7650179_52323_28e393fd22bda124c0c5d08d312523bc.webp"
+width="760"
+height="230"
+loading="lazy" data-zoomable />&lt;/div>
+&lt;/div>&lt;/figure>
+&lt;/p>
+&lt;p>In general, the result of a convolution between two time series (both of length
+$N$) is a resultant time series also of length
+$N$.&lt;/p>
+&lt;p>Mathematically, the
+$t^{th}$ element of the resultant time series from a circular convolution between two time series
+$\{a_t\}$ and
+$\{b_t\}$ (both of length
+$N$) is:&lt;/p>
+$$
+a * b_t \equiv \sum_{u=0}^{N-1} a_u b_{t-u}
+$$
+&lt;p>where
+$t = 0, 1, \dots, N-1$.&lt;/p>
+&lt;p>Whenever the subscript on
+$b$ is negative (which occurs whenever
+$u$ is greater than
+$t$), we define
+$b_{-1}=b_{N-1} ; b_{-2}=b_{N-2}$ and so on.&lt;/p>
+&lt;p>More compactly (at the expense of readability), we can also write the
+$t^{th}$ element of the resultant time series of a circular convolution between two time series
+$\{a_t\}$ and
+$\{b_t\}$ as:&lt;/p>
+$$
+a * b_t \equiv \sum_{u=0}^{N-1} a_u b_{(t-u) \bmod N}, \quad t=0, \ldots, N-1
+$$
+&lt;p>where
+$\bmod$ is the modulo operator.&lt;/p>
+&lt;p>Here&amp;rsquo;s a coded implementation:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">naive_circular_convolution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">assert&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">N&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">t&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">c_t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="n">u&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="nb">range&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">N&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">c_t&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="n">a&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">u&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">[(&lt;/span>&lt;span class="n">t&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">u&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="n">N&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">c&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">append&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c_t&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">asarray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="circular-convolution-using-dft">Circular Convolution Using DFT&lt;/h2>
+&lt;p>A key fact is that a circular convolution can be computed using the DFT and inverse DFT. Here&amp;rsquo;s how:&lt;/p>
+&lt;ol>
+&lt;li>Compute the DFT of
+$\{a_t\}$, denoted by
+$\{A_k\}$&lt;/li>
+&lt;li>Compute the DFT of
+$\{b_t\}$, denoted by
+$\{B_k\}$&lt;/li>
+&lt;li>Take the inverse DFT of
+$\{A_{k} B_{k}\}$&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">naive_circular_convolution_dft&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">A&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">naive_finite_fourier_transform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># STEP 1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">B&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">naive_finite_fourier_transform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># STEP 2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># STEP 3&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">C&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">A&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="n">B&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">_&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">naive_inverse_finite_fourier_transform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">C&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">c&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="example-1">Example&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">random&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">c&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">naive_circular_convolution&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">c1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">naive_circular_convolution_dft&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">b&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">np&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">allclose&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">c1&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;pre>&lt;code>True
+&lt;/code>&lt;/pre>
+&lt;h1 id="final-words">Final Words&lt;/h1>
+&lt;p>An interesting point to mention is that circular convolution can be performed using a filter
+$\{a_t\}$ that is infinite in length (while the time series
+$\{b_t\}$ is finite in length). This is made possible by a process known as &amp;ldquo;filter periodization&amp;rdquo;. I will make a post in the future about this interesting topic.&lt;/p>
+&lt;p>Thanks for reading!&lt;/p></description></item><item><title>Extreme Learning Machine in 3 Lines of Code</title><link>https://johnswyou.github.io/post/elm-in-3-lines/</link><pubDate>Sat, 11 Feb 2023 00:00:00 +0000</pubDate><guid>https://johnswyou.github.io/post/elm-in-3-lines/</guid><description>&lt;h1 id="introduction-optional-read">Introduction (optional read)&lt;/h1>
 &lt;p>The extreme learning machine (ELM) model is a machine learning (ML) technique that can be applied to both regression and classification problems. ELM is a feed-forward neural network with one hidden layer. The most important difference between a regular feed-forward neural network with one hidden layer and ELM is that &lt;strong>ELM does not use backpropagation&lt;/strong> to learn its weights and biases. Instead, all weights and biases that map input vectors to the single hidden layer are assigned random values, and the weights that map the hidden layer to the output (a predicted target in the case of regression) are learned via least squared, not unlike ordinary least squares (OLS) linear regression. In fact, we will see shortly that the equation for ELM and OLS have the exact same form. It should be clear that the main advantage of ELM is reduced training time relative to training a neural network with the same architecture using backpropagation. One disadvantage of ELM is the questionable practice of assigning random values to the weights and biases that map input vectors to the single hidden layer. It is unclear how this affects the generalizability of ELM.&lt;/p>
 &lt;p>ELM was popularized by a 2006 paper titled &amp;ldquo;Extreme learning machine: Theory and applications&amp;rdquo; by Huang, Zhu and Siew. ELM has been a controversial topic, and while I won&amp;rsquo;t go into details here, you can start with &lt;a href="https://towardsdatascience.com/some-call-it-genius-others-call-it-stupid-the-most-controversial-neural-network-ever-created-2224ed22795a" target="_blank" rel="noopener">this great article&lt;/a> if you want to dig into the drama.&lt;/p>
 &lt;h1 id="elm-algorithm-in-math">ELM algorithm in math&lt;/h1>
